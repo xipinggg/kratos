@@ -38,7 +38,7 @@ func _Greeter_SayHello0_HTTP_Handler(srv GreeterHTTPServer) func(ctx http.Contex
 			return err
 		}
 		http.SetOperation(ctx, OperationGreeterSayHello)
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+		h := ctx.Middleware(func(ctx context.Context, req any) (any, error) {
 			return srv.SayHello(ctx, req.(*HelloRequest))
 		})
 		out, err := h(ctx, &in)

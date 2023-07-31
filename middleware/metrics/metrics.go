@@ -42,7 +42,7 @@ func Server(opts ...Option) middleware.Middleware {
 		o(&op)
 	}
 	return func(handler middleware.Handler) middleware.Handler {
-		return func(ctx context.Context, req interface{}) (interface{}, error) {
+		return func(ctx context.Context, req any) (any, error) {
 			var (
 				code      int
 				reason    string
@@ -77,7 +77,7 @@ func Client(opts ...Option) middleware.Middleware {
 		o(&op)
 	}
 	return func(handler middleware.Handler) middleware.Handler {
-		return func(ctx context.Context, req interface{}) (interface{}, error) {
+		return func(ctx context.Context, req any) (any, error) {
 			var (
 				code      int
 				reason    string

@@ -10,10 +10,10 @@ import (
 )
 
 // Decoder is config decoder.
-type Decoder func(*KeyValue, map[string]interface{}) error
+type Decoder func(*KeyValue, map[string]any) error
 
 // Resolver resolve placeholder in config.
-type Resolver func(map[string]interface{}) error
+type Resolver func(map[string]any) error
 
 // Option is config option.
 type Option func(*options)
@@ -57,7 +57,7 @@ func WithLogger(_ log.Logger) Option {
 
 // defaultDecoder decode config from source KeyValue
 // to target map[string]interface{} using src.Format codec.
-func defaultDecoder(src *KeyValue, target map[string]interface{}) error {
+func defaultDecoder(src *KeyValue, target map[string]any) error {
 	if src.Format == "" {
 		// expand key "aaa.bbb" into map[aaa]map[bbb]interface{}
 		keys := strings.Split(src.Key, ".")
@@ -65,7 +65,7 @@ func defaultDecoder(src *KeyValue, target map[string]interface{}) error {
 			if i == len(keys)-1 {
 				target[k] = src.Value
 			} else {
-				sub := make(map[string]interface{})
+				sub := make(map[string]any)
 				target[k] = sub
 				target = sub
 			}
@@ -80,7 +80,7 @@ func defaultDecoder(src *KeyValue, target map[string]interface{}) error {
 
 // defaultResolver resolve placeholder in map value,
 // placeholder format in ${key:default}.
-func defaultResolver(input map[string]interface{}) error {
+func defaultResolver(input map[string]any) error {
 	mapper := func(name string) string {
 		args := strings.SplitN(strings.TrimSpace(name), ":", 2) //nolint:gomnd
 		if v, has := readValue(input, args[0]); has {
@@ -92,22 +92,22 @@ func defaultResolver(input map[string]interface{}) error {
 		return ""
 	}
 
-	var resolve func(map[string]interface{}) error
-	resolve = func(sub map[string]interface{}) error {
+	var resolve func(map[string]any) error
+	resolve = func(sub map[string]any) error {
 		for k, v := range sub {
 			switch vt := v.(type) {
 			case string:
 				sub[k] = expand(vt, mapper)
-			case map[string]interface{}:
+			case map[string]any:
 				if err := resolve(vt); err != nil {
 					return err
 				}
-			case []interface{}:
+			case []any:
 				for i, iface := range vt {
 					switch it := iface.(type) {
 					case string:
 						vt[i] = expand(it, mapper)
-					case map[string]interface{}:
+					case map[string]any:
 						if err := resolve(it); err != nil {
 							return err
 						}

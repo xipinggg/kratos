@@ -35,7 +35,7 @@ func _Metadata_ListServices0_HTTP_Handler(srv MetadataHTTPServer) func(ctx http.
 			return err
 		}
 		http.SetOperation(ctx, "/kratos.api.Metadata/ListServices")
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+		h := ctx.Middleware(func(ctx context.Context, req any) (any, error) {
 			return srv.ListServices(ctx, req.(*ListServicesRequest))
 		})
 		out, err := h(ctx, &in)
@@ -57,7 +57,7 @@ func _Metadata_GetServiceDesc0_HTTP_Handler(srv MetadataHTTPServer) func(ctx htt
 			return err
 		}
 		http.SetOperation(ctx, "/kratos.api.Metadata/GetServiceDesc")
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+		h := ctx.Middleware(func(ctx context.Context, req any) (any, error) {
 			return srv.GetServiceDesc(ctx, req.(*GetServiceDescRequest))
 		})
 		out, err := h(ctx, &in)

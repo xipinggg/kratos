@@ -19,7 +19,7 @@ type Redacter interface {
 // Server is an server logging middleware.
 func Server(logger log.Logger) middleware.Middleware {
 	return func(handler middleware.Handler) middleware.Handler {
-		return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
+		return func(ctx context.Context, req any) (reply any, err error) {
 			var (
 				code      int32
 				reason    string
@@ -55,7 +55,7 @@ func Server(logger log.Logger) middleware.Middleware {
 // Client is a client logging middleware.
 func Client(logger log.Logger) middleware.Middleware {
 	return func(handler middleware.Handler) middleware.Handler {
-		return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
+		return func(ctx context.Context, req any) (reply any, err error) {
 			var (
 				code      int32
 				reason    string
@@ -89,7 +89,7 @@ func Client(logger log.Logger) middleware.Middleware {
 }
 
 // extractArgs returns the string of the req
-func extractArgs(req interface{}) string {
+func extractArgs(req any) string {
 	if redacter, ok := req.(Redacter); ok {
 		return redacter.Redact()
 	}

@@ -17,7 +17,7 @@ type Latency struct{}
 var ErrUnknownRequest = errors.InternalServer("UNKNOWN", "unknown request error")
 
 // HandlerFunc is recovery handler func.
-type HandlerFunc func(ctx context.Context, req, err interface{}) error
+type HandlerFunc func(ctx context.Context, req, err any) error
 
 // Option is recovery option.
 type Option func(*options)
@@ -36,7 +36,7 @@ func WithHandler(h HandlerFunc) Option {
 // Recovery is a server middleware that recovers from any panics.
 func Recovery(opts ...Option) middleware.Middleware {
 	op := options{
-		handler: func(ctx context.Context, req, err interface{}) error {
+		handler: func(ctx context.Context, req, err any) error {
 			return ErrUnknownRequest
 		},
 	}
@@ -44,7 +44,7 @@ func Recovery(opts ...Option) middleware.Middleware {
 		o(&op)
 	}
 	return func(handler middleware.Handler) middleware.Handler {
-		return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
+		return func(ctx context.Context, req any) (reply any, err error) {
 			startTime := time.Now()
 			defer func() {
 				if rerr := recover(); rerr != nil {

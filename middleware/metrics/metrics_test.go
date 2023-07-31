@@ -93,10 +93,10 @@ func TestWithSeconds(t *testing.T) {
 
 func TestServer(t *testing.T) {
 	e := errors.New("got an error")
-	nextError := func(ctx context.Context, req interface{}) (interface{}, error) {
+	nextError := func(ctx context.Context, req any) (any, error) {
 		return nil, e
 	}
-	nextValid := func(ctx context.Context, req interface{}) (interface{}, error) {
+	nextValid := func(ctx context.Context, req any) (any, error) {
 		return "Hello valid", nil
 	}
 
@@ -125,10 +125,10 @@ func TestServer(t *testing.T) {
 
 func TestClient(t *testing.T) {
 	e := errors.New("got an error")
-	nextError := func(ctx context.Context, req interface{}) (interface{}, error) {
+	nextError := func(ctx context.Context, req any) (any, error) {
 		return nil, e
 	}
-	nextValid := func(ctx context.Context, req interface{}) (interface{}, error) {
+	nextValid := func(ctx context.Context, req any) (any, error) {
 		return "Hello valid", nil
 	}
 

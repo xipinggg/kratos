@@ -88,7 +88,7 @@ func RegisterMetadataServer(s grpc.ServiceRegistrar, srv MetadataServer) {
 	s.RegisterService(&Metadata_ServiceDesc, srv)
 }
 
-func _Metadata_ListServices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Metadata_ListServices_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(ListServicesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -100,13 +100,13 @@ func _Metadata_ListServices_Handler(srv interface{}, ctx context.Context, dec fu
 		Server:     srv,
 		FullMethod: "/kratos.api.Metadata/ListServices",
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(MetadataServer).ListServices(ctx, req.(*ListServicesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Metadata_GetServiceDesc_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Metadata_GetServiceDesc_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(GetServiceDescRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -118,7 +118,7 @@ func _Metadata_GetServiceDesc_Handler(srv interface{}, ctx context.Context, dec 
 		Server:     srv,
 		FullMethod: "/kratos.api.Metadata/GetServiceDesc",
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(MetadataServer).GetServiceDesc(ctx, req.(*GetServiceDescRequest))
 	}
 	return interceptor(ctx, in, info, handler)

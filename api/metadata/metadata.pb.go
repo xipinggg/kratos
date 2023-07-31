@@ -269,7 +269,7 @@ func file_metadata_metadata_proto_rawDescGZIP() []byte {
 }
 
 var file_metadata_metadata_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_metadata_metadata_proto_goTypes = []interface{}{
+var file_metadata_metadata_proto_goTypes = []any{
 	(*ListServicesRequest)(nil),            // 0: kratos.api.ListServicesRequest
 	(*ListServicesReply)(nil),              // 1: kratos.api.ListServicesReply
 	(*GetServiceDescRequest)(nil),          // 2: kratos.api.GetServiceDescRequest
@@ -295,7 +295,7 @@ func file_metadata_metadata_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_metadata_metadata_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_metadata_metadata_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*ListServicesRequest); i {
 			case 0:
 				return &v.state
@@ -307,7 +307,7 @@ func file_metadata_metadata_proto_init() {
 				return nil
 			}
 		}
-		file_metadata_metadata_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_metadata_metadata_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*ListServicesReply); i {
 			case 0:
 				return &v.state
@@ -319,7 +319,7 @@ func file_metadata_metadata_proto_init() {
 				return nil
 			}
 		}
-		file_metadata_metadata_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_metadata_metadata_proto_msgTypes[2].Exporter = func(v any, i int) any {
 			switch v := v.(*GetServiceDescRequest); i {
 			case 0:
 				return &v.state
@@ -331,7 +331,7 @@ func file_metadata_metadata_proto_init() {
 				return nil
 			}
 		}
-		file_metadata_metadata_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_metadata_metadata_proto_msgTypes[3].Exporter = func(v any, i int) any {
 			switch v := v.(*GetServiceDescReply); i {
 			case 0:
 				return &v.state

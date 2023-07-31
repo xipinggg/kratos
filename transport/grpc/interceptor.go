@@ -13,7 +13,7 @@ import (
 
 // unaryServerInterceptor is a gRPC unary server interceptor
 func (s *Server) unaryServerInterceptor() grpc.UnaryServerInterceptor {
-	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+	return func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (any, error) {
 		ctx, cancel := ic.Merge(ctx, s.baseCtx)
 		defer cancel()
 		md, _ := grpcmd.FromIncomingContext(ctx)
@@ -31,7 +31,7 @@ func (s *Server) unaryServerInterceptor() grpc.UnaryServerInterceptor {
 			ctx, cancel = context.WithTimeout(ctx, s.timeout)
 			defer cancel()
 		}
-		h := func(ctx context.Context, req interface{}) (interface{}, error) {
+		h := func(ctx context.Context, req any) (any, error) {
 			return handler(ctx, req)
 		}
 		if next := s.middleware.Match(tr.Operation()); len(next) > 0 {
@@ -64,7 +64,7 @@ func (w *wrappedStream) Context() context.Context {
 
 // streamServerInterceptor is a gRPC stream server interceptor
 func (s *Server) streamServerInterceptor() grpc.StreamServerInterceptor {
-	return func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
+	return func(srv any, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
 		ctx, cancel := ic.Merge(ss.Context(), s.baseCtx)
 		defer cancel()
 		md, _ := grpcmd.FromIncomingContext(ctx)

@@ -222,7 +222,7 @@ func file_test_proto_rawDescGZIP() []byte {
 }
 
 var file_test_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_test_proto_goTypes = []interface{}{
+var file_test_proto_goTypes = []any{
 	(*HelloRequest)(nil),          // 0: binding.HelloRequest
 	(*Sub)(nil),                   // 1: binding.Sub
 	(*fieldmaskpb.FieldMask)(nil), // 2: google.protobuf.FieldMask
@@ -244,7 +244,7 @@ func file_test_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_test_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_test_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*HelloRequest); i {
 			case 0:
 				return &v.state
@@ -256,7 +256,7 @@ func file_test_proto_init() {
 				return nil
 			}
 		}
-		file_test_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_test_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*Sub); i {
 			case 0:
 				return &v.state
@@ -269,7 +269,7 @@ func file_test_proto_init() {
 			}
 		}
 	}
-	file_test_proto_msgTypes[0].OneofWrappers = []interface{}{}
+	file_test_proto_msgTypes[0].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
